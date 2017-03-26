@@ -9,6 +9,7 @@ import json
 import os
 from watson_developer_cloud import ToneAnalyzerV3, NaturalLanguageClassifierV1
 from sklearn.svm import SVC
+import pickle
 
 tone_analyzer = ToneAnalyzerV3(
    username='26db2c5b-2eda-46d0-9c66-438d943713d8',
@@ -45,7 +46,7 @@ labels = realnews_labels + fakenews_labels
 
 svc = SVC()
 svc.fit(allnews,labels)
-
+pickle.dump(svc,os.getcwd()+'/svm')
 
 
 
