@@ -14,9 +14,9 @@ tone_analyzer = ToneAnalyzerV3(
    password='O3UAXtApBXOQ',
    version='2016-05-19')
 
-words = ['you suck','i hate you','you\'re terribe','you\'re the worst',
-         'so bad','you\'re ugly',
-         'nice','thanks','kind','safe','appreciate','yay']
+words = ['suck','hate','terribe','worst',
+         'bad','ugly',
+         'nice','thanks','kind','safe','appreciate','yay','beautiful']
 
 #print json.dumps(tone_analyzer.tone(text='yayyyy'),indent=2)
 
@@ -37,7 +37,7 @@ for i in words:
     word_analysis.append(features)
 
 
-good_labels = [1]*6
+good_labels = [1]*7
 bad_labels = [0]*6
 
 labels = bad_labels + good_labels
