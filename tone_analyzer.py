@@ -33,20 +33,23 @@ for i in realnews:
     tone = iterate_tone_analysis(i)
     features = get_features(tone)
     realnews.append(features)
-    realnews_labels = [0] * len(realnews)
+    
 
 for i in fakenews:
     tone = iterate_tone_analysis(i)
     features = get_features(tone)
     fakenews.append(features)
-    fakenews_labels = [1] * len(fakenews)
+    
+
+realnews_labels = [0] * len(realnews)
+fakenews_labels = [1] * len(fakenews)
 
 allnews = realnews + fakenews
 labels = realnews_labels + fakenews_labels
 
 svc = SVC()
 svc.fit(allnews,labels)
-pickle.dump(svc,os.getcwd()+'/svm')
+pickle.dump(svc,os.getcwd()+'/svm-news.p')
 
 
 
