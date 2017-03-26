@@ -4,6 +4,7 @@
 import twitter
 import json
 import ssl
+from website.predict_cyber import bully_analysis
 
 
 def get_tweets(token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb',
@@ -17,18 +18,19 @@ def get_tweets(token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb',
         token_secret=secret
     ))
 
-    return t.statuses.home_timeline(count=200)
+    return t.statuses.home_timeline(count=30)
 
 
 def read_tweets():
     opened = open('data.txt', 'r')
     return json.loads(opened.read())
 
+
 def final_called(jsong):
     with open('data.txt', 'w') as outfile:
         json.dump(jsong, outfile)
 
-    sites = open('file.txt', 'r')
+    sites = open('website/file.txt', 'r')
     sitelist = json.loads(sites.read()).keys()
     print(sitelist)
 
@@ -44,12 +46,18 @@ def final_called(jsong):
                 str = str[4:]
 
             if str in sitelist:
-                print (str)
+                print(str)
                 print(1)
                 a['validity'] = 'False'
             else:
                 a['validity'] = 'True'
         else:
             a['validity'] = 'n/a'
+
+        if bully_analysis(text) == 0:
+            a['harass'] = 'False'
+        else:
+            a['harass'] = 'True'
     return jsong
-final_called(get_tweets())
+
+

@@ -13,8 +13,7 @@ import website.twitter_search
 import requests
 import json
 import pyrebase
-
-
+from website.predict_cyber import bully_analysis
 # from celery import result.AsyncResult.ready
 
 
@@ -56,15 +55,39 @@ def twitter(request):
 
     data = {
     }
+    print(request)
     if request.GET.get('TwitterKey') or request.GET.get('TwitterSecret'):
         val = request.GET.get('TwitterKey')
         secret = request.GET.get('TwitterSecret')
         email = request.GET.get('email')
-        print(email)
+        print(val,secret,email)
+        # print(email)
         try:
-            tweets = website.twitter_search.get_tweets()
+            tweets = website.twitter_search.get_tweets(token=val, secret=secret)
         except:
             tweets = website.twitter_search.read_tweets()
         twitter_val = website.twitter_search.final_called(tweets)
         write_to_firebase(twitter_val, email)
+    return render(request, 'new-index.html', data)
+
+
+def tweet(request):
+    """
+    Maps the index url to the html page
+    :param request: the url request
+    :return: the index page if authenticated, else returns to the login page
+    """
+
+    data = {
+    }
+    if request.GET.get('tweet'):
+        tweet = request.GET.get('tweet')
+
+        data['harass'] = bully_analysis(tweet)
+        data['validity'] = "True"
+        sites = open('website/file.txt', 'r')
+        sitelist = json.loads(sites.read()).keys()
+        for i in sitelist:
+            if i in tweet:
+                data['validity'] = "False"
     return render(request, 'new-index.html', data)
