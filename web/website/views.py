@@ -29,3 +29,17 @@ def index(request):
         test = request.GET.get('Error_Message')
         data['error'] = test
     return render(request, 'index.html', data)
+
+def twitter(request):
+    """
+    Maps the index url to the html page
+    :param request: the url request
+    :return: the index page if authenticated, else returns to the login page
+    """
+
+    data = {
+    }
+    if request.POST.get('TwitterKey') and request.POST.get('TwitterSecret'):
+        test = request.GET.get('Error_Message')
+        data['error'] = test
+    return render(request, 'index.html', data)
