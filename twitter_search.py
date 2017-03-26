@@ -6,4 +6,4 @@ t = twitter.Twitter(auth=twitter.OAuth(
     token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb',
     token_secret='oqNzyouv3j9WLIdIG74bh3MXDNOk48igE83Ktlkqv8zAQ'
 ))
-print (t.statuses.home_timeline())
+print(t.statuses.home_timeline())
