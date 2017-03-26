@@ -1,4 +1,3 @@
-
 import twitter
 
 t = twitter.Twitter(auth=twitter.OAuth(
