@@ -24,6 +24,11 @@ def get_text_from_url(url):
     return encode(text.text)
 
 
+def get_text_from_feed(rss_feed):
+    for link in generate_links_from_feed(rss_feed):
+        yield get_text_from_url(link)
+
+
 if __name__ == '__main__':
     for link in generate_links_from_feed(URL):
         print('{}\n\n\n'.format(get_text_from_url(link)))
