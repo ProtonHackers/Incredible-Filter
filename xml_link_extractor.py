@@ -2,6 +2,7 @@ import rssparser
 import numpy
 opened = open('incrediblerss.xml', 'r')
 # opened = open('crediblerss.xml', 'r')
+
 str = opened.read()
 strarr = []
 
@@ -12,3 +13,4 @@ while(str.find('<link>') != -1):
     str = str[str.find("</link>")+1:]
 print(strarr)
 numpy.save('incrediblerss',strarr)
+
