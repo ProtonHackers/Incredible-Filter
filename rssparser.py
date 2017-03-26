@@ -11,12 +11,19 @@ def encode(text):
     return text.encode('utf-8').strip()
 
 
-d = feedparser.parse(URL)
+def generate_links_from_feed(url):
+    feed = feedparser.parse(url)
+    for post in feed.entries:
+        yield encode(post.link)
 
-for post in d.entries:
-    title = encode(post.title)
-    text = Article(encode(post.link))
+
+def get_text_from_url(url):
+    text = Article(encode(url))
     text.download()
     text.parse()
-    text = encode(text.text)
-    print('{} \n=============================================================\n{}\n'.format(title, text))
+    return encode(text.text)
+
+
+if __name__ == '__main__':
+    for link in generate_links_from_feed(URL):
+        print('{}\n\n\n'.format(get_text_from_url(link)))
