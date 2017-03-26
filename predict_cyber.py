@@ -11,6 +11,6 @@ from antibully import iterate_tone_analysis, get_features
 
 pickle.load(open(os.getcwd() + '/svm-cyber.p','rb'))
 
-new = get_features(iterate_tone_analysis('what a tim'))
+new = get_features(iterate_tone_analysis('viks i want to kill you'))
 print svc.predict(new)
 
