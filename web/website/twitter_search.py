@@ -18,7 +18,7 @@ def get_tweets(token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb',
         token_secret=secret
     ))
 
-    return t.statuses.home_timeline(count=30)
+    return t.statuses.home_timeline(count=20)
 
 
 def read_tweets():
@@ -33,11 +33,13 @@ def final_called(jsong):
     sites = open('website/file.txt', 'r')
     sitelist = json.loads(sites.read()).keys()
     print(sitelist)
-
+    val = 0
+    arr = []
     for a in jsong:
         print(a)
         text = a['text']
-
+        if val == 30:
+            break
         if len(a['entities']['urls']) > 0:
             str = a['entities']['urls'][0]['expanded_url']
 
@@ -53,11 +55,14 @@ def final_called(jsong):
                 a['validity'] = 'True'
         else:
             a['validity'] = 'n/a'
-
         if bully_analysis(text) == 0:
-            a['harass'] = 'False'
+            a['harass'] = "True"
         else:
-            a['harass'] = 'True'
-    return jsong
+            a['harass'] = "False"
+        arr.append(a)
+        val += 1
+
+    return arr
 
 
+final_called(get_tweets())

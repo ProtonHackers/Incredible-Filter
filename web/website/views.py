@@ -14,6 +14,8 @@ import requests
 import json
 import pyrebase
 from website.predict_cyber import bully_analysis
+
+
 # from celery import result.AsyncResult.ready
 
 
@@ -43,6 +45,7 @@ def write_to_firebase(twitter_search, email):
     }
     firebase = pyrebase.initialize_app(config)
     db = firebase.database()
+    print(len(twitter_search[0]))
     db.child('users').child(email).set(twitter_search)
 
 
@@ -60,13 +63,14 @@ def twitter(request):
         val = request.GET.get('TwitterKey')
         secret = request.GET.get('TwitterSecret')
         email = request.GET.get('email')
-        print(val,secret,email)
+        print(val, secret, email)
         # print(email)
         try:
             tweets = website.twitter_search.get_tweets(token=val, secret=secret)
         except:
             tweets = website.twitter_search.read_tweets()
         twitter_val = website.twitter_search.final_called(tweets)
+        print("the prev len" + str(len(twitter_val)))
         write_to_firebase(twitter_val, email)
     return render(request, 'new-index.html', data)
 
@@ -82,7 +86,6 @@ def tweet(request):
     }
     if request.GET.get('tweet'):
         tweet = request.GET.get('tweet')
-
         data['harass'] = bully_analysis(tweet)
         data['validity'] = "True"
         sites = open('website/file.txt', 'r')
