@@ -26,10 +26,17 @@ def get_features(json_text):
             main_json.append(i['score'])
     return main_json    
 
-realnews = []
+f = open(os.getcwd()+'/data/realnews/cnn-1.txt','rw')
+cnn = f.read()
+print type(cnn)
+new = cnn.replace("'","\'")
+new2 = new.replace('"','\"')
+realnews = ['In a time of intense stuff, people have been suffering a lot.']
 fakenews = []
-
+iterate_tone_analysis('In a time of intense stuff, people have been suffering a lot.')
+print realnews[0]
 for i in realnews:
+    print i
     tone = iterate_tone_analysis(i)
     features = get_features(tone)
     realnews.append(features)
@@ -46,11 +53,11 @@ fakenews_labels = [1] * len(fakenews)
 
 allnews = realnews + fakenews
 labels = realnews_labels + fakenews_labels
-
+'''
 svc = SVC()
 svc.fit(allnews,labels)
 pickle.dump(svc,os.getcwd()+'/svm-news.p')
-
+'''
 
 
 '''
