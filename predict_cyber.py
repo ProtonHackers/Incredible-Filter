@@ -10,7 +10,18 @@ from antibully import iterate_tone_analysis, get_features
 
 
 pickle.load(open(os.getcwd() + '/svm-cyber.p','rb'))
+# 0 is bad
+# 1 is good
+'''
+new = get_features(iterate_tone_analysis('viks i hate you'))
+result = svc.predict(new)
+if result == 0:
+    print True
+'''
+def bully_analysis(string):
+    svc = pickle.load(open(os.getcwd() + '/svm-cyber.p','rb'))
+    new = get_features(iterate_tone_analysis(string))
+    result = svc.predict(new)
+    return result
 
-new = get_features(iterate_tone_analysis('viks i want to kill you'))
-print svc.predict(new)
-
+print bully_analysis('viks screw you')        
