@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import twitter
 
 t = twitter.Twitter(auth=twitter.OAuth(
