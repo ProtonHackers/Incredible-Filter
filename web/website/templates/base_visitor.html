@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Buzzub Video Upload{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/buzzub_logo.png' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <style type="text/css">
+        #splash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+        }
+
+        #splash_img {
+            background: white;
+            bottom: 50%;
+            left: 50%;
+            margin-left: -200px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'main:index' %}">Buzzub</a>
+        </div>
+
+        <!-- Items -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                <li class="{% block register_active %}{% endblock %}"><a href="{% url 'main:register' %}">Register</a>
+                </li>
+                <li class="{% block login_active %}{% endblock %}"><a href="{% url 'main:login_user' %}">Log In</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</nav>
+{% block body %}
+{% endblock %}
+<div id="splash" style="">
+    <img id="splash_img" src="{% static 'images/splash.png' %}"/>
+</div>
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            $('#splash').fadeOut(500);
+        }, 1000);
+    });
+</script>
+</body>
+</html>
