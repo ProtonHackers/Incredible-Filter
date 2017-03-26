@@ -6,7 +6,8 @@ import json
 import ssl
 
 
-def get_tweets(token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb', secret='oqNzyouv3j9WLIdIG74bh3MXDNOk48igE83Ktlkqv8zAQ' ):
+def get_tweets(token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb',
+               secret='oqNzyouv3j9WLIdIG74bh3MXDNOk48igE83Ktlkqv8zAQ'):
     # Temp fix, we should check the cert
     ssl._create_default_https_context = ssl._create_unverified_context
     t = twitter.Twitter(auth=twitter.OAuth(
@@ -23,9 +24,7 @@ def read_tweets():
     opened = open('data.txt', 'r')
     return json.loads(opened.read())
 
-
 def final_called(jsong):
-
     with open('data.txt', 'w') as outfile:
         json.dump(jsong, outfile)
 
@@ -34,6 +33,9 @@ def final_called(jsong):
     print(sitelist)
 
     for a in jsong:
+        print(a)
+        text = a['text']
+
         if len(a['entities']['urls']) > 0:
             str = a['entities']['urls'][0]['expanded_url']
 
@@ -49,4 +51,5 @@ def final_called(jsong):
                 a['validity'] = 'True'
         else:
             a['validity'] = 'n/a'
-    return (jsong)
+    return jsong
+final_called(get_tweets())
