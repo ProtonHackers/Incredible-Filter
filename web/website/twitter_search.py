@@ -4,9 +4,11 @@
 import twitter
 import json
 import ssl
+from website.predict_cyber import bully_analysis
 
 
-def get_tweets(token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb', secret='oqNzyouv3j9WLIdIG74bh3MXDNOk48igE83Ktlkqv8zAQ' ):
+def get_tweets(token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb',
+               secret='oqNzyouv3j9WLIdIG74bh3MXDNOk48igE83Ktlkqv8zAQ'):
     # Temp fix, we should check the cert
     ssl._create_default_https_context = ssl._create_unverified_context
     t = twitter.Twitter(auth=twitter.OAuth(
@@ -16,7 +18,7 @@ def get_tweets(token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb', secre
         token_secret=secret
     ))
 
-    return t.statuses.home_timeline(count=200)
+    return t.statuses.home_timeline(count=30)
 
 
 def read_tweets():
@@ -25,15 +27,17 @@ def read_tweets():
 
 
 def final_called(jsong):
-
     with open('data.txt', 'w') as outfile:
         json.dump(jsong, outfile)
 
-    sites = open('file.txt', 'r')
+    sites = open('website/file.txt', 'r')
     sitelist = json.loads(sites.read()).keys()
     print(sitelist)
 
     for a in jsong:
+        print(a)
+        text = a['text']
+
         if len(a['entities']['urls']) > 0:
             str = a['entities']['urls'][0]['expanded_url']
 
@@ -42,11 +46,18 @@ def final_called(jsong):
                 str = str[4:]
 
             if str in sitelist:
-                print (str)
+                print(str)
                 print(1)
                 a['validity'] = 'False'
             else:
                 a['validity'] = 'True'
         else:
             a['validity'] = 'n/a'
-    return (jsong)
+
+        if bully_analysis(text) == 0:
+            a['harass'] = 'False'
+        else:
+            a['harass'] = 'True'
+    return jsong
+
+
