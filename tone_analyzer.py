@@ -10,6 +10,9 @@ import os
 from watson_developer_cloud import ToneAnalyzerV3, NaturalLanguageClassifierV1
 from sklearn.svm import SVC
 import pickle
+import numpy as np
+from tqdm import *
+import time
 
 tone_analyzer = ToneAnalyzerV3(
    username='26db2c5b-2eda-46d0-9c66-438d943713d8',
@@ -26,30 +29,48 @@ def get_features(json_text):
             main_json.append(i['score'])
     return main_json    
 
-realnews = []
+f = open(os.getcwd()+'/data/realnews/cnn-1.txt','rw')
+cnn = f.read()
+print type(cnn)
+new = cnn.replace("'","\'")
+new2 = new.replace('"','\"')
+realnews = ['In a time of intense stuff, people have been suffering a lot.','blahh',new2]
 fakenews = []
 
-for i in realnews:
+fakenews = np.load(os.getcwd()+'/incrediblerss.npy')
+print len(fakenews)
+
+realnews = np.load(os.getcwd()+'/crediblerss.npy')
+print len(realnews)
+
+realnews_features,fakenews_features = [],[]
+'''
+iterate_tone_analysis('In a time of intense stuff, people have been suffering a lot.')
+print realnews[0]
+'''
+for i in tqdm(realnews):
+    time.sleep(0.01)
     tone = iterate_tone_analysis(i)
     features = get_features(tone)
-    realnews.append(features)
+    realnews_features.append(features)
     
 
-for i in fakenews:
+for i in tqdm(fakenews):
+    time.sleep(0.01)
     tone = iterate_tone_analysis(i)
     features = get_features(tone)
-    fakenews.append(features)
+    fakenews_features.append(features)
     
 
 realnews_labels = [0] * len(realnews)
 fakenews_labels = [1] * len(fakenews)
 
-allnews = realnews + fakenews
+allnews = realnews_features + fakenews_features
 labels = realnews_labels + fakenews_labels
 
 svc = SVC()
 svc.fit(allnews,labels)
-pickle.dump(svc,os.getcwd()+'/svm-news.p')
+pickle.dump(svc,open(os.getcwd()+'/svm-news.p','wb'))
 
 
 

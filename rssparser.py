@@ -8,7 +8,7 @@ URL = 'http://rss.cnn.com/rss/cnn_topstories.rss'
 
 
 def encode(text):
-    return text.encode('utf-8').strip()
+    return str(text.encode('utf-8').strip())
 
 
 def generate_links_from_feed(url):
@@ -18,7 +18,7 @@ def generate_links_from_feed(url):
 
 
 def get_text_from_url(url):
-    text = Article(encode(url))
+    text = Article(url)
     text.download()
     text.parse()
     return encode(text.text)
