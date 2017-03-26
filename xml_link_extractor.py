@@ -1,4 +1,5 @@
-opened = open('incrediblerss.xml', 'r')
+# opened = open('incrediblerss.xml', 'r')
+opened = open('crediblerss.xml', 'r')
 str = opened.read()
 newstr = ''
 
