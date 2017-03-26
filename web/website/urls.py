@@ -5,4 +5,6 @@ app_name = 'main'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^twitter/', views.twitter, name='twitter'),
+    url(r'^tweet/', views.tweet, name='tweet'),
 ]
