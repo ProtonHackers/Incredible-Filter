@@ -5,8 +5,6 @@ import twitter
 import json
 import ssl
 
-<<<<<<< HEAD:twitter-search.py
-
 def get_tweets (token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb', secret='oqNzyouv3j9WLIdIG74bh3MXDNOk48igE83Ktlkqv8zAQ' ):
     # Temp fix, we should check the cert
     ssl._create_default_https_context = ssl._create_unverified_context
@@ -52,12 +50,3 @@ def final_called():
 
                 print("{} = {}".format(key, val))
     return (jsong)
-=======
-t = twitter.Twitter(auth=twitter.OAuth(
-    consumer_key='2OpqKP7HWETiLQfbkt8pvZJtt',
-    consumer_secret='qBViiC6pOjKDoLuegYVcSUc5trlWsByuiH59a7YyLmgK3lo6X2',
-    token='845769803084120064-ufOqpGZMPqWAmQWN6wglauxpRFYZaIb',
-    token_secret='oqNzyouv3j9WLIdIG74bh3MXDNOk48igE83Ktlkqv8zAQ'
-))
-print(t.statuses.home_timeline())
->>>>>>> master:twitter_search.py
