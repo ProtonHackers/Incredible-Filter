@@ -9,17 +9,17 @@ import pickle, json, os
 from antibully import iterate_tone_analysis, get_features
 
 
-pickle.load(open(os.getcwd() + '/svm-cyber.p','rb'))
+pickle.load(open(os.getcwd() + '/svm-cyber','rb'))
 # 0 is bad
 # 1 is good
 '''
-new = get_features(iterate_tone_analysis('viks i hate you'))
+new = get_features(iterate_tone_analysis(''))
 result = svc.predict(new)
 if result == 0:
     print True
 '''
 def bully_analysis(string):
-    svc = pickle.load(open(os.getcwd() + '/svm-cyber.p','rb'))
+    svc = pickle.load(open(os.getcwd() + '/svm-cyber','rb'))
     new = get_features(iterate_tone_analysis(string))
     result = svc.predict(new)
     return result

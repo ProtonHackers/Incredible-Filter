@@ -70,7 +70,7 @@ labels = realnews_labels + fakenews_labels
 
 svc = SVC()
 svc.fit(allnews,labels)
-pickle.dump(svc,open(os.getcwd()+'/svm-news.p','wb'))
+pickle.dump(svc,open(os.getcwd()+'/svm-news','wb'))
 
 
 
