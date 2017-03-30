@@ -9,7 +9,7 @@ import pickle, os, json
 from antibully import iterate_tone_analysis, get_features
 
 
-pickle.load(open(os.getcwd() + '/svm-news.p','rb'))
+svc = pickle.load(open(os.getcwd() + '/svm-news','rb'))
 
 f = open(os.getcwd()+'/data/realnews/la-1.txt','rw')
 cnn = f.read()
