@@ -1,6 +1,11 @@
 # Incredible-Filter
-Made by Vikranth Srivatsa, Rohan Koodli, Aubhro Sengupta, and Vineet Mudupalli in 24 hours at HSHacks III.
+Created by Rohan Koodli, Vineet Mudupalli, Vikranth Srivatsa, and Aubhro Sengupta
 
+Winner: #HackHarassment
+
+Winner: .Tech Best Hack with .tech domain name
+
+Check out the Devpost link [here](https://devpost.com/software/incredible-feed).
 ## Inspiration
 We were inspired by the recent spread of false news and we also wanted to create a hack against cyberbullying.
 
