@@ -19,7 +19,7 @@ words = ['suck','hate','terribe','worst','bad','ugly','dumb',
 #print json.dumps(tone_analyzer.tone(text='yayyyy'),indent=2)
 
 def iterate_tone_analysis(jsonfile):
-    return tone_analyzer.tone(text=jsonfile)
+    return tone_analyzer.tone(text=jsonfile) # returns JSON with all the sentiment analysis
     
 def get_features(json_text):
     main_json = []
@@ -35,12 +35,12 @@ for i in words:
     word_analysis.append(features)
 
 
-good_labels = [1]*8
-bad_labels = [0]*7
+good_labels = [1]*8 # the first 8 words in list words are negative
+bad_labels = [0]*7 # the last 7 words in words are positive
 
 labels = bad_labels + good_labels
 
-svc = SVC()
+svc = SVC() # use a Support Vector Machine
 svc.fit(word_analysis,labels)
 pickle.dump(svc,open(os.getcwd()+'/svm-cyber.p','wb'))
 
